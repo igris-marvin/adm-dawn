@@ -1,4 +1,4 @@
-package com.sanienterprise.adm_dawn;
+package com.enterprise.adm_dawn;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

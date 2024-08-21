@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Bootstrap Admin Dashboard</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css">
+        <script src="https://kit.fontawesome.com/ae360af17e.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" th:href="@{/style/style.css}">
+    </head>
+
+    <body>
+        <div class="wrapper">
+
+            <!-- SIDEBAR -->
+
+            <div th:insert="~{fragment/sidebar :: sidebar}"></div>
+
+            <div class="main">
+                
+                <!-- NAVIGATION BAR -->
+
+                <div th:insert="~{fragment/navigation :: navigation}"></div>
+
+                <main class="content px-3 py-2">
+                    <div class="container-fluid">
+                        <div class="mb-3">
+                            <h4>Admin Dashboard</h4>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-md-6 d-flex">
+                                <div class="card flex-fill border-0 illustration">
+                                    <div class="card-body p-0 d-flex flex-fill">
+                                        <div class="row g-0 w-100">
+                                            <div class="col-6">
+                                                <div class="p-3 m-1">
+                                                    <h4>Welcome Back, Admin</h4>
+                                                    <p class="mb-0">
+                                                        <a th:href="@{/}">
+                                                            View Profile
+                                                        </a>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 align-self-end text-end">
+                                                <img th:src="@{/image/customer_support.jpg}" class="img-fluid illustration-img"
+                                                    alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6 d-flex">
+
+                                <a th:href="@{/customer}">
+                                    <div class="card text-bg-dark flex-fill border-0">
+                                        <!-- <div class="card-body py-4"> -->
+                                            <img src="https://placehold.co/600x180" class="card-img" alt="...">
+                                            <div class="card-img-overlay">
+                                                <h5 class="card-title">Customers</h5>
+                                                <p class="card-text">View a list of al customers currently registered, you have an option to remove a customer.</p>
+                                                <p class="card-text"><small>No. of customers: <b>TOTAL_NUMBER</b></small></p>
+                                            </div>
+                                        <!-- </div> -->
+                                    </div>
+                                </a>
+
+                            </div>
+                        </div>
+
+                        <!-- THREE THUMB CARDS -->
+
+                        <div class="row row-cols-1 row-cols-md-3 g-4">
+                            <div class="col">
+                                
+                                <a th:href="@{/furniture}" class="link-primary">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <p class="card-text">Create Furniture<i class="bi bi-plus-circle-fill float-end"></i></p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="col">
+                                
+                                <a th:href="@{/category}" class="link-primary">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <p class="card-text">Create Category<i class="bi bi-plus-circle float-end"></i></p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col">
+
+                                <a th:ref="@{/admin}">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <p class="card-text">Register Admin<i class="bi bi-person-fill-add float-end"></i></p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                          </div>
+
+                        <!-- CONTENT HERE -->
+
+                        <div class="card border-0">
+                            <div class="card-header">
+                                <h5 class="card-title">
+                                    List of Furniture Categories
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Display Image</th>
+                                            <th scope="col">Category ID</th>
+                                            <th scope="col">Title</th>
+                                            <th scope="col">No. of items</th>
+                                            <th scope="col">Date Added</th>
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">LIST_COUNT</th>
+                                            <td>
+                                                <img src="" alt="category_display_image"/>
+                                            </td>
+                                            <td>CATEGORY_ID</td>
+                                            <td>TITLE</td>
+                                            <td>NO_OF_ITEMS</td>
+                                            <td>DATE_ADDED</td>
+                                            <td>
+                                                <a th:href="@{/}">
+                                                    Browse
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </main>
+
+                <a href="#" class="theme-toggle">
+                    <i class="fa-regular fa-moon"></i>
+                    <i class="fa-regular fa-sun"></i>
+                </a>
+            </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
+        <script th:src="@{/script/script.js}"></script>
+    </body>
+
+</html>
