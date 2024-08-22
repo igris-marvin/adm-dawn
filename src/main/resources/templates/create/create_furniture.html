@@ -62,34 +62,33 @@
                                 <div class="mb-3">
                                     <label class="form-label">Category</label>
                                     <select class="form-select" th:field="*{category}" required>
-                                        <option selected>Select category</option>
-                                        <option value="1">Chairs</option>
+                                        <option th:each="c, stat : ${categs}" th:if="${stat.index == 0}" th:value="${c}" th:text="${c}" selected>CATEGORY</option>
+                                        <option th:each="c, stat : ${categs}" th:if="${stat.index != 0}"th:value="${c}" th:text="${c}" >CATEGORY</option>
                                     </select>
+                                    <a th:href="@{/category}" style="margin-top: 8px;" class="link btn btn-outline-info">
+
+                                        Create a new category (this will discard any unsaved changes)
+                                    </a>
                                 </div>
 
                                 <div class="mb-3">
                                     <label class="form-label">Status</label>
                                     <select class="form-select" th:field="*{status}" required>
-                                        <option selected>Select category</option>
-                                        <option value="1">Chairs</option>
+                                        <option th:each="c, stat : ${stats}" th:if="${stat.index == 0}" th:value="${c}" th:text="${c}" selected>Select category</option>
+                                        <option th:each="c, stat : ${stats}" th:if="${stat.index != 0}" th:value="${c}" th:text="${c}">Chairs</option>
                                     </select>
                                 </div>
 
                                 <div class="mb-3">
                                     <label class="form-label">Display Image</label>
-                                    <input type="file" name="displayImage" accept="image/*" class="form-control" placeholder="Upload display price" required>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label class="form-label">Extra Images for Display</label>
-                                    <input type="file" name="extraImages" accept="image/*" multiple class="form-control" placeholder="Upload extra images" required>
+                                    <input type="file" name="photo" accept="image/*" class="form-control" placeholder="Upload display price" required>
                                 </div>
 
                                 <div class="mb-3">
                                     <label class="form-label">Discount</label>
                                     <select class="form-select" th:field="*{discount}" required>
-                                        <option selected>Select discount</option>
-                                        <option value="1">Chairs</option>
+                                        <option value="0" selected>None</option>
+                                        <option th:each="disc : ${discounts}" th:text="${disc}" th:value="${disc}">DISCOUNT</option>
                                     </select>
                                 </div>
 

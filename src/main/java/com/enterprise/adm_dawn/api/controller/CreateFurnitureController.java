@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.enterprise.adm_dawn.api.dto.CategoryDTO;
+import com.enterprise.adm_dawn.api.dto.FurnitureDTO;
 import com.enterprise.adm_dawn.api.service.CreateFurnitureService;
 
 @Controller
@@ -30,23 +31,22 @@ public class CreateFurnitureController {
         List<String> stats = cfServ.getStatuses();
         List<String> discounts = cfServ.getDiscounts();
 
-        return "create/c_furniture";
+        model.addAttribute("furniture", new FurnitureDTO());
+        model.addAttribute("categs", categs);
+        model.addAttribute("stats", stats);
+        model.addAttribute("discounts", discounts);
+
+        return "create/create_furniture";
     }
 
     @PostMapping
     public String postCreateFurniture(
         @ModelAttribute("furniture") CategoryDTO dto,
-        @RequestParam("displayImage") MultipartFile displayFile,
-        @RequestParam("extraImages") List<MultipartFile> extraFiles,
+        @RequestParam("photo") MultipartFile file,
         Model model
     ) {
         System.out.println(dto.toString());
 
-        return "c_furniture_outcome";
-    }
-
-    @ModelAttribute("furniture")
-    public CategoryDTO getCategoryDTO () {
-        return new CategoryDTO();
+        return "outcome/create_furniture_outcome";
     }
 }
