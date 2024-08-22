@@ -1,0 +1,37 @@
+<div th:fragment="thumb">
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col">
+            
+            <a th:href="@{/furniture}" class="link-primary">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-text">Create Furniture<i class="bi bi-plus-circle-fill float-end"></i></p>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col">
+            
+            <a th:href="@{/category}" class="link-primary">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-text">Create Category<i class="bi bi-plus-circle float-end"></i></p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col">
+
+            <a th:ref="@{/admin}">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-text">Register Admin<i class="bi bi-person-fill-add float-end"></i></p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    
+</div>

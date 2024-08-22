@@ -27,6 +27,7 @@ public class Admin {
     private String username;
     private String password;
 
+    @Column(unique = true)
     private String email;
 
     @Temporal(value = TemporalType.DATE)
