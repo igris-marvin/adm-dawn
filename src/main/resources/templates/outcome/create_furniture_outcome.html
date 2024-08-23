@@ -35,13 +35,16 @@
                         <!-- CONTENT HERE -->
 
                         <div class="container mt-5">
-                            <div class="alert alert-success text-center" role="alert">
-                                Item was created successfully!
+                            <div th:if="${result == 'true'}" class="alert alert-success text-center" role="alert">
+                                Furniture created successfully!
+                            </div>
+                            <div th:if="${result == 'false'}" class="alert alert-danger text-center" role="alert">
+                                Item creation failed!
                             </div>
                             <div class="d-flex justify-content-center">
-                                <a href="create-item.html" class="btn btn-primary m-2">Create Another Item</a>
-                                <a href="view-item.html" class="btn btn-success m-2">View Item</a>
-                                <a href="index.html" class="btn btn-secondary m-2">Back</a>
+                                <a th:href="@{/furniture}" class="btn btn-primary m-2">Create Furniture</a>
+
+                                <button onclick="window.history.back();" class="btn btn-secondary m-2">Back</button>
                             </div>
                         </div>
 
