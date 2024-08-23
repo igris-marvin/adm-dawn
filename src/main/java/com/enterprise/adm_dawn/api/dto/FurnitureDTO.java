@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class FurnitureDTO {
     private Long furnitureId;
     private String furnitureName;
-    private int quantity;
+    private Integer quantity;
     private String price;
     private String description;
     private String status;

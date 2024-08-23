@@ -39,6 +39,7 @@
                             <h2>Enter Furniture Data</h2>
 
                             <form th:object="${furniture}" th:action="@{/furniture}" method="POST" enctype="multipart/form-data">
+                                
                                 <div class="mb-3">
                                     <label class="form-label">Furniture Name</label>
                                     <input type="text" th:field="*{furnitureName}" class="form-control" placeholder="Enter furniture name" required>
@@ -87,7 +88,7 @@
                                 <div class="mb-3">
                                     <label class="form-label">Discount</label>
                                     <select class="form-select" th:field="*{discount}" required>
-                                        <option value="0" selected>None</option>
+                                        <option value="null" selected>None</option>
                                         <option th:each="disc : ${discounts}" th:text="${disc}" th:value="${disc}">DISCOUNT</option>
                                     </select>
                                 </div>

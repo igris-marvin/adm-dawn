@@ -41,11 +41,13 @@ public class CreateFurnitureController {
 
     @PostMapping
     public String postCreateFurniture(
-        @ModelAttribute("furniture") CategoryDTO dto,
+        @ModelAttribute("furniture") FurnitureDTO dto,
         @RequestParam("photo") MultipartFile file,
         Model model
     ) {
-        System.out.println(dto.toString());
+        boolean result = cfServ.createFurniture(dto, file);
+
+        model.addAttribute("result", Boolean.toString(result));
 
         return "outcome/create_furniture_outcome";
     }
