@@ -23,13 +23,13 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a th:href="@{/}" class="sidebar-link">
+                    <a th:href="@{/category}" class="sidebar-link">
                         <i class="bi bi-plus-circle fs-5"></i>
                         Create Category
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a th:href="@{/}" class="sidebar-link">
+                    <a th:href="@{/customer}" class="sidebar-link">
                         <i class="bi bi-people fs-5"></i>
                         Customers
                     </a>
@@ -46,15 +46,15 @@
                         <i class="bi bi-person-circle fs-5"></i>
                         Auth
                     </a>
-                    <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                    <ul id="auth" class="sidebar-dropdown list-unstyled collapse" style="margin-left: 24px;" data-bs-parent="#sidebar">
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link"><i class="bi bi-person-fill fs-6"></i> Profile</a>
+                            <a th:href="@{/profile}" class="sidebar-link"><i class="bi bi-person-fill fs-6"></i> Profile</a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link"><i class="bi bi-person-fill-add fs-6"></i> Register</a>
+                            <a th:href="@{/admin}" class="sidebar-link"><i class="bi bi-person-fill-add fs-6"></i> Register Admin</a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link"><i class="bi bi-box-arrow-left fs-6"></i> Logout</a>
+                            <a th:href="@{/logout}" class="sidebar-link"><i class="bi bi-box-arrow-left fs-6"></i> Logout</a>
                         </li>
                     </ul>
                 </li>

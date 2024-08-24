@@ -10,9 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.enterprise.adm_dawn.api.dto.AdminDTO;
 import com.enterprise.adm_dawn.api.dto.CategoryDTO;
+import com.enterprise.adm_dawn.api.dto.CustomerDTO;
 import com.enterprise.adm_dawn.api.dto.FurnitureDTO;
+import com.enterprise.adm_dawn.persistence.entity.Admin;
 import com.enterprise.adm_dawn.persistence.entity.Category;
+import com.enterprise.adm_dawn.persistence.entity.Customer;
 import com.enterprise.adm_dawn.persistence.entity.Discount;
 import com.enterprise.adm_dawn.persistence.entity.Furniture;
 import com.enterprise.adm_dawn.persistence.entity.Image;
@@ -150,6 +154,85 @@ public class ConverterService {
 
         System.err.println("Chosen status cannot be resolved");
         return FurnitureStatus.UNAVAILABLE;
+    }
+
+    public Category convertCategoryDTO(
+        CategoryDTO dto, 
+        MultipartFile file
+    ) {
+        
+        String categoryName = dto.getCategoryName();
+        String description = dto.getDescription();
+        
+        byte[] displayImage = null;
+
+        try {
+            displayImage = file.getBytes();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        Date dateAdded = Date.from(Instant.now());
+
+        return new Category(
+            categoryName, 
+            description, 
+            displayImage, 
+            dateAdded
+        );
+    }
+
+    public Admin convertAdminDTO(AdminDTO dto) {
+
+        String username = dto.getUsername();
+
+        //encrypt password
+        String password = dto.getPassword();
+        String email = dto.getEmail();
+        Date dateAdded = Date.from(Instant.now());
+
+        return new Admin(
+            username, 
+            password, 
+            email, 
+            dateAdded
+        );
+    }
+
+    public CustomerDTO convertCustomer(
+        Customer x
+    ) {
+
+        Long customerId = x.getCustomerId();
+        String username = x.getUsername();
+        String password = null;
+        String email = x.getEmail();
+        String contact = x.getContact();
+        String name = x.getName();
+        String surname = x.getSurname();
+        char gender = x.getGender().custGender;
+        String dateOfBirth = x.getDateOfBirth().toString();
+        String photo = "data:image/jpg;base64," + Base64
+                                .getEncoder()
+                                .encodeToString(
+                                    x
+                                    .getPhoto()
+                                );
+        String dateJoined = x.getDateJoined().toString();
+
+        return new CustomerDTO(
+            customerId, 
+            username, 
+            password, 
+            email, 
+            contact, 
+            name, 
+            surname, 
+            gender, 
+            dateOfBirth, 
+            photo, 
+            dateJoined
+        );
     }
     
 }

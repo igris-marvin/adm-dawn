@@ -39,16 +39,21 @@
                                                 <div class="p-3 m-1">
                                                     <h4>Welcome Back, Admin</h4>
                                                     <p class="mb-0">
-                                                        <a th:href="@{/}">
+                                                        <a th:href="@{/profile}">
                                                             View Profile
                                                         </a>
                                                     </p>
                                                 </div>
                                             </div>
+                                            
+                                            
                                             <div class="col-6 align-self-end text-end">
-                                                <img th:src="@{/image/customer_support.jpg}" class="img-fluid illustration-img"
-                                                    alt="">
+                                                
+                                                <a th:href="@{/customer}">
+                                                    <img th:src="@{/image/customer_support.jpg}" class="img-fluid illustration-img" alt="">
+                                                </a>
                                             </div>
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -62,7 +67,7 @@
                                             <img th:src="@{/image/customer.jpeg}" class="card-img" alt="...">
                                             <div class="card-img-overlay">
                                                 <h5 class="card-title">Customers</h5>
-                                                <p class="card-text">View a list of al customers currently registered, you have an option to remove a customer.</p>
+                                                <p class="card-text">View a list of all customers currently registered, you have an option to remove a customer.</p>
                                                 <p class="card-text"><small>No. of customers: <b th:text="${customerSize}">TOTAL_NUMBER</b></small></p>
                                             </div>
                                         <!-- </div> -->
@@ -92,7 +97,7 @@
                                             <th scope="col">Display Image</th>
                                             <th scope="col">Category ID</th>
                                             <th scope="col">Title</th>
-                                            <th scope="col">No. of items</th>
+                                            <th scope="col">No. of Furniture</th>
                                             <th scope="col">Date Added</th>
                                             <th scope="col">Action</th>
                                         </tr>
