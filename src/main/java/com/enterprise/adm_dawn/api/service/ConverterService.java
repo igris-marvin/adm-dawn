@@ -1,13 +1,13 @@
 package com.enterprise.adm_dawn.api.service;
 
+import java.io.IOException;
+import java.text.DecimalFormat;
+import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.Date;
-import java.io.IOException;
-import java.time.Instant;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,23 +22,11 @@ import com.enterprise.adm_dawn.persistence.entity.Category;
 import com.enterprise.adm_dawn.persistence.entity.Customer;
 import com.enterprise.adm_dawn.persistence.entity.Discount;
 import com.enterprise.adm_dawn.persistence.entity.Furniture;
-import com.enterprise.adm_dawn.persistence.entity.Image;
 import com.enterprise.adm_dawn.persistence.entity.Furniture.FurnitureStatus;
+import com.enterprise.adm_dawn.persistence.entity.Image;
 import com.enterprise.adm_dawn.persistence.repository.CategoryRepository;
 import com.enterprise.adm_dawn.persistence.repository.DiscountRepository;
 import com.enterprise.adm_dawn.persistence.repository.FurnitureRepository;
-
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 
 @Service
 public class ConverterService {
@@ -322,7 +310,7 @@ public class ConverterService {
         String description = dto.getDescription();
         FurnitureStatus status = resolveStatus(dto.getStatus());
         Category category = resolveCategory(dto.getCategory());
-        Image displayImage = file == null ? f.getDisplayImage() : resolveImage(file);
+        Image displayImage = file.isEmpty() ? f.getDisplayImage() : resolveModifiedImage(file);
         List<Image> extraImages = f.getExtraImages();
         Discount discount = resolveDiscount(dto.getDiscount());
         Date dateAdded = f.getDateAdded();
@@ -338,6 +326,51 @@ public class ConverterService {
             displayImage, 
             extraImages, 
             discount, 
+            dateAdded
+        );
+    }
+
+    private Image resolveModifiedImage(
+        MultipartFile file
+    ) {
+        String imageTitle = file.getOriginalFilename();
+        Double imageSize = file.getSize() / 1000000.0;
+        
+        byte[] imageSource = null;
+
+        try {
+            imageSource = file.getBytes();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Date dateAdded = Date.from(Instant.now());
+
+        return new Image(imageTitle, imageSize, imageSource, dateAdded);
+    }
+
+    public AdminDTO convertAdmin(
+        Admin a
+    ) {
+
+        Long adminId = a.getAdminId();
+        String username = a.getUsername();
+
+        String p = "";
+        
+        for (int i = 0; i < a.getPassword().length(); i++) {
+            p += "*";
+        }
+
+        String password = p;
+        String email = a.getEmail();
+        String dateAdded = a.getDateAdded().toString();
+
+        return new AdminDTO(
+            adminId, 
+            username, 
+            password, 
+            email, 
             dateAdded
         );
     }

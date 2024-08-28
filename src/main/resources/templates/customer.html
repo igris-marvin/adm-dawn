@@ -41,6 +41,18 @@
                         <div th:insert="~{fragment/fingerboard :: thumb}"></div>
 
                         <!-- CONTENT HERE -->
+                        <div th:if="${result != null}" class="container-fluid">
+
+                            <div th:if="${result == 'true'}" class="alert alert-success" role="alert">
+                                Furniture has been updated successfully!
+                            </div>
+                            
+                            <div th:if="${result == 'false'}" class="alert alert-danger" role="alert">
+                                There was an error trying to update the furniture, please try again!
+                            </div>
+                              
+
+                        </div>
 
                         <div class="card border-0">
                             <div class="card-header">
