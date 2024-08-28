@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.enterprise.adm_dawn.api.dto.CategoryDTO;
 import com.enterprise.adm_dawn.api.dto.FurnitureDTO;
 import com.enterprise.adm_dawn.api.service.CreateFurnitureService;
 

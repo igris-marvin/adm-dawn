@@ -2,9 +2,12 @@ package com.enterprise.adm_dawn.api.service;
 
 import java.util.Base64;
 import java.util.List;
+import java.util.Optional;
 import java.util.Date;
 import java.io.IOException;
 import java.time.Instant;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +28,15 @@ import com.enterprise.adm_dawn.persistence.repository.CategoryRepository;
 import com.enterprise.adm_dawn.persistence.repository.DiscountRepository;
 import com.enterprise.adm_dawn.persistence.repository.FurnitureRepository;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
@@ -90,15 +101,12 @@ public class ConverterService {
         String discount
     ) {
 
-        if(!discount.equalsIgnoreCase("null")) {
+        List<Discount> list = discRepo.findAll();
 
-            List<Discount> list = discRepo.findAll();
-
-            for (Discount x : list) {
-                
-                if(x.getDiscountTitle().equalsIgnoreCase(discount)) {
-                    return x;
-                }
+        for (Discount x : list) {
+            
+            if(x.getDiscountTitle().equalsIgnoreCase(discount)) {
+                return x;
             }
         }
 
@@ -232,6 +240,105 @@ public class ConverterService {
             dateOfBirth, 
             photo, 
             dateJoined
+        );
+    }
+
+    public FurnitureDTO convertFurniture(
+        Furniture x
+    ) {
+        DecimalFormat frmt = new DecimalFormat("R###,###.00");
+
+        Long furnitureId = x.getFurnitureId();
+        String furnitureName = x.getFurnitureName();
+        Integer quantity = x.getQuantity();
+        String price = frmt.format(x.getPrice());
+        String description = x.getDescription();
+        String status = x.getStatus().getFurnStatus();
+        String category = x.getCategory().getCategoryName();
+
+        String displayImage = "data:image/jpg;base64," + Base64
+            .getEncoder()
+            .encodeToString(
+                x
+                .getDisplayImage()
+                .getImageSource()
+            );
+
+        List<String> extraImages = convertExtraImages(x.getExtraImages());
+        String discount = x.getDiscount().getDiscountTitle();
+        String dateAdded = x.getDateAdded().toString();
+
+        return new FurnitureDTO(
+            furnitureId, 
+            furnitureName, 
+            quantity, 
+            price, 
+            description, 
+            status, 
+            category, 
+            displayImage, 
+            extraImages, 
+            discount, 
+            dateAdded
+        );
+    }
+
+    private List<String> convertExtraImages(
+        List<Image> extraImages
+    ) {
+        List<String> list = new ArrayList<>();
+
+        for (Image x : extraImages) {
+            
+            String image = "data:image/jpg;base64," + Base64
+                .getEncoder()
+                .encodeToString(
+                    x.getImageSource()
+                );
+
+            list.add(image);
+        }
+
+        return list;
+    }
+
+    public Furniture convertModifiedFurnitureDTO(
+        FurnitureDTO dto,
+        MultipartFile file
+    ) throws Exception {
+            
+        Optional<Furniture> opt = furnRepo.findById(dto.getFurnitureId());
+
+        if(opt.isEmpty()) {
+            throw new Exception("Furniture with id " + dto.getFurnitureId() + " does not exist!");
+        }
+
+        Furniture f = opt.get();
+
+        Long furnitureId = dto.getFurnitureId();
+        String furnitureName = dto.getFurnitureName();
+        int quantity = dto.getQuantity();
+        Double price = Double.parseDouble(dto.getPrice());
+        String description = dto.getDescription();
+        FurnitureStatus status = resolveStatus(dto.getStatus());
+        Category category = resolveCategory(dto.getCategory());
+        Image displayImage = file == null ? f.getDisplayImage() : resolveImage(file);
+        List<Image> extraImages = f.getExtraImages();
+        Discount discount = resolveDiscount(dto.getDiscount());
+        Date dateAdded = f.getDateAdded();
+
+        return new Furniture(
+            furnitureId, 
+            furnitureName, 
+            quantity, 
+            price, 
+            description, 
+            status, 
+            category, 
+            displayImage, 
+            extraImages, 
+            discount, 
+            dateAdded
         );
     }
     

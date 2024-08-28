@@ -35,37 +35,53 @@
 
                         <!-- CONTENT HERE -->
 
+                        <div th:if="${result != null}" class="container-fluid">
+
+                            <div th:if="${result == 'true'}" class="alert alert-success" role="alert">
+                                Furniture has been updated successfully!
+                            </div>
+                            
+                            <div th:if="${result == 'false'}" class="alert alert-danger" role="alert">
+                                There was an error trying to update the furniture, please try again!
+                            </div>
+                              
+
+                        </div>
+
                         <div class="container mt-5" style="margin-bottom: 80px;">
 
                             <h2>Enter Furniture Data</h2>
 
-                            <form th:object="${furniture}" th:action="@{/furniture}" method="POST" enctype="multipart/form-data">
-                                
+                            <form th:action="@{/modify}" method="POST" enctype="multipart/form-data">
+                                <div class="mb-3">
+                                    <label class="form-label">Furniture ID</label>
+                                    <input type="number" name="fid" th:value="${furn.furnitureId}"  class="form-control" readonly>
+                                </div>
+
                                 <div class="mb-3">
                                     <label class="form-label">Furniture Name</label>
-                                    <input type="text" th:field="*{furnitureName}" class="form-control" placeholder="Enter furniture name" required>
+                                    <input type="text" name="fname" th:value="${furn.furnitureName}" class="form-control" placeholder="Enter furniture name" required>
                                 </div>
 
                                 <div class="mb-3">
                                     <label class="form-label">Description</label>
-                                    <textarea class="form-control" th:field="*{description}" rows="3" placeholder="Enter furniture description" required></textarea>
+                                    <textarea class="form-control" name="fdesc" th:text="${furn.description}" rows="3" placeholder="Enter furniture description" required></textarea>
                                 </div>
 
                                 <div class="mb-3">
                                     <label class="form-label">Price</label>
-                                    <input type="number" th:field="*{price}" class="form-control" placeholder="Enter furniture price" required>
+                                    <input type="number" name="fprice" th:value="${price}" class="form-control" placeholder="Enter furniture price" required>
                                 </div>
 
                                 <div class="mb-3">
                                     <label class="form-label">Quantity</label>
-                                    <input type="number" th:field="*{quantity}" class="form-control" placeholder="Enter furniture quantity" required>
+                                    <input type="number" name="fquan" th:value="${furn.quantity}" class="form-control" placeholder="Enter furniture quantity" required>
                                 </div>
 
                                 <div class="mb-3">
                                     <label class="form-label">Category</label>
-                                    <select class="form-select" th:field="*{category}" required>
-                                        <option th:each="c, stat : ${categs}" th:if="${stat.index == 0}" th:value="${c}" th:text="${c}" selected>CATEGORY</option>
-                                        <option th:each="c, stat : ${categs}" th:if="${stat.index != 0}" th:value="${c}" th:text="${c}" >CATEGORY</option>
+                                    <select class="form-select" name="fcat" required>
+                                        <option th:each="c, stat : ${categs}" th:value="${c}" th:text="${c}" th:selected="${furn.category == c}">CATEGORY</option>
                                     </select>
                                     <a th:href="@{/category}" style="margin-top: 8px;" class="link btn btn-outline-info">
 
@@ -75,22 +91,20 @@
 
                                 <div class="mb-3">
                                     <label class="form-label">Status</label>
-                                    <select class="form-select" th:field="*{status}" required>
-                                        <option th:each="c, stat : ${stats}" th:if="${stat.index == 0}" th:value="${c}" th:text="${c}" selected>Select category</option>
-                                        <option th:each="c, stat : ${stats}" th:if="${stat.index != 0}" th:value="${c}" th:text="${c}">Chairs</option>
+                                    <select class="form-select" name="fstat" required>
+                                        <option th:each="s, stat : ${stats}" th:value="${s}" th:text="${s}" th:selected="${furn.status == s}">STATUS</option>
                                     </select>
                                 </div>
 
                                 <div class="mb-3">
                                     <label class="form-label">Display Image</label>
-                                    <input type="file" name="photo" accept="image/*" class="form-control" placeholder="Upload display price" required>
+                                    <input type="file" name="photo" accept="image/*" class="form-control" placeholder="Upload display price">
                                 </div>
 
                                 <div class="mb-3">
                                     <label class="form-label">Discount</label>
-                                    <select class="form-select" th:field="*{discount}" required>
-                                        <option value="none" selected>none</option>
-                                        <option th:each="disc : ${discounts}" th:if="${disc != 'none'}" th:text="${disc}" th:value="${disc}">DISCOUNT</option>
+                                    <select class="form-select" name="fdisc" required>
+                                        <option th:each="disc : ${discount}" th:text="${disc}" th:value="${disc}" th:selected="${furn.discount == disc}">DISCOUNT</option>
                                     </select>
                                 </div>
 

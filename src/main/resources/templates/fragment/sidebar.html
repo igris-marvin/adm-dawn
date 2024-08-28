@@ -35,7 +35,7 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a th:href="@{/}" class="sidebar-link">
+                    <a th:href="@{/browse}" class="sidebar-link">
                         <i class="bi bi-basket fs-5"></i>
                         Furniture
                     </a>
@@ -59,7 +59,7 @@
                     </ul>
                 </li>
                 <li class="sidebar-item">
-                    <form th:action="@{/search}" method="POST" style="margin-left: 8px;">
+                    <form th:action="@{/browse/search}" method="POST" style="margin-left: 8px;">
                         <input type="number" name="id" placeholder="search furniture by id" required/>
                         <input type="submit" value="submit">
                     </form>

@@ -1,5 +1,9 @@
 package com.enterprise.adm_dawn.api.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,14 +12,29 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.enterprise.adm_dawn.api.dto.CategoryDTO;
+import com.enterprise.adm_dawn.api.dto.FurnitureDTO;
+import com.enterprise.adm_dawn.api.service.BrowseService;
+
 @Controller
 @RequestMapping("/browse")
 public class BrowseController {
 
-    @GetMapping("/all")
+    @Autowired
+    private BrowseService brosServ;
+
+    @GetMapping
     public String getBrowse(
         Model model
     ) {
+        List<FurnitureDTO> furniture = brosServ.getFurniture();
+
+        String message = "No existing furniture found, please publish furniture!";
+
+        model.addAttribute("heading", "Furniture");
+        model.addAttribute("furniture", furniture);
+        model.addAttribute("message", message);
+
         return "browse";
     }
     
@@ -24,8 +43,15 @@ public class BrowseController {
         @PathVariable("id") Long id,
         Model model
     ) {
-        //get category data
-        //get furniture list of the specific category
+        CategoryDTO dto = brosServ.getCategory(id);
+        List<FurnitureDTO> furniture = brosServ.getFurnitureByCategory(id);
+
+        String catName = dto == null ? "---" : dto.getCategoryName();
+        String message = "No existing furniture found under the requested category!";
+
+        model.addAttribute("heading", "Furniture By Category: " + catName);
+        model.addAttribute("furniture", furniture);
+        model.addAttribute("message", message);
 
         return "browse";
     }
@@ -36,8 +62,19 @@ public class BrowseController {
         Model model
     ) {
         // search for furniture with specified ID
+        FurnitureDTO furn = brosServ.getFurnitureById(id);
 
-        String zeroMessage = 
+        List<FurnitureDTO> furniture = new ArrayList<>();
+
+        if( furn != null) {
+            furniture.add(furn);
+        }
+
+        String message = "Furniture with ID (" + id + ") does not exist";
+
+        model.addAttribute("heading", "Search results for furniture ID (" + id + ")");
+        model.addAttribute("furniture", furniture);
+        model.addAttribute("message", message);
 
         return "browse";
     }
