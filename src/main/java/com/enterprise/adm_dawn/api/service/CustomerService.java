@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.enterprise.adm_dawn.api.dto.CustomerDTO;
-import com.enterprise.adm_dawn.persistence.entity.Customer;
 import com.enterprise.adm_dawn.persistence.repository.CustomerRepository;
 
 @Service

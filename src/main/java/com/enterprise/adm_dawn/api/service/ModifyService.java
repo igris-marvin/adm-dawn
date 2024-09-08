@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.enterprise.adm_dawn.api.dto.FurnitureDTO;
-import com.enterprise.adm_dawn.persistence.entity.Discount;
 import com.enterprise.adm_dawn.persistence.entity.Furniture;
 import com.enterprise.adm_dawn.persistence.entity.Furniture.FurnitureStatus;
 import com.enterprise.adm_dawn.persistence.repository.CategoryRepository;

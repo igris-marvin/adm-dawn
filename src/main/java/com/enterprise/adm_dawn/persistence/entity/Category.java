@@ -7,7 +7,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
@@ -28,7 +27,8 @@ public class Category {
     private String categoryName;
     private String description;
     
-    @Column(columnDefinition = "LONGBLOB")
+    // @Column(columnDefinition = "LONGBLOB")
+    @Column(columnDefinition = "BYTEA")
     private byte[] displayImage;
 
     @Temporal(value = TemporalType.TIMESTAMP)

@@ -12,7 +12,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Lob;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -44,7 +43,8 @@ public class Customer {
     @Temporal(value = TemporalType.DATE)
     private Date dateOfBirth;
     
-    @Column(columnDefinition = "LONGBLOB")
+    // @Column(columnDefinition = "LONGBLOB")
+    @Column(columnDefinition = "BYTEA")
     private byte[] photo;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

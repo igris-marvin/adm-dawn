@@ -7,9 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import com.enterprise.adm_dawn.persistence.entity.Category;
 import com.enterprise.adm_dawn.persistence.entity.Furniture;
-import com.enterprise.adm_dawn.persistence.entity.Image;
-
-import java.util.List;
 
 
 @Repository
